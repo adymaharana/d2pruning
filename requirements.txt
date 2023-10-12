@@ -1,0 +1,5 @@
+scipy
+transformers==4.24.0
+tqdm
+torchvision
+scikit-learn==0.24

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6" project-jdk-type="Python SDK" />
+  <component name="UnattendedHostPersistenceState">
+    <option name="openedFilesInfos">
+      <list>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="61" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/requirements.txt" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="48" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/LICENSE" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="2674" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/train.py" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1645" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/generate_importance_score.py" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="11347" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/core/data/sampling.py" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="21810" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/select_d2_datacomp.py" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="2658" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/Readme.MD" />
+        </OpenedFileInfo>
+      </list>
+    </option>
+  </component>
+</project>
