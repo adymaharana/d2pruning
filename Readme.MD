@@ -1,5 +1,5 @@
 ## D2 Pruning: Message Passing for Balancing Diversity & Difficulty in Data Pruning
-* Authors: [Adyasha Maharana](https://adymaharana.github.io/), [Prateek Yadav](https://prateek-yadav.github.io/), and [Mohit Bansal](https://www.cs.unc.edu/~mbansal/)
+* Authors: [Adyasha Maharana](https://adymaharana.github.io/), [Prateek Yadav](https://prateeky2806.github.io/), and [Mohit Bansal](https://www.cs.unc.edu/~mbansal/)
 * Paper: [arXiv]()
 
 ![image](./assets/d2_pruning_main.png)
