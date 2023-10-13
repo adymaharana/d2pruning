@@ -598,25 +598,23 @@ if __name__ == "__main__":
     start_time = time.time()
     uids, neighbors, graph_scores, clip_scores, distances = initialize_graph(args.metadata_dir,
                                                                        trained_index_file,
-                                                                       "../datasets/datacomp/clip_scores.npy",
-                                                                       '../datasets/datacomp/offsets.pkl',
+                                                                       os.path.join(args.out_dir, 'clip_scores.npy'),
+                                                                       os.path.join(args.out_dir, 'offsets.pkl'),
                                                                        args.num_workers, args.feature_type, args.n_neighbors)
-    np.save('../datasets/datacomp/graph_%snn_%s_uids.npy' % (args.n_neighbors, args.feature_type), uids)
-    np.save('../datasets/datacomp/graph_%snn_%s_neighbors.npy' % (args.n_neighbors, args.feature_type), neighbors)
-    np.save('../datasets/datacomp/graph_%snn_%s_graph_scores.npy' % (args.n_neighbors, args.feature_type), graph_scores)
-    np.save('../datasets/datacomp/graph_%snn_%s_clip_scores.npy' % (args.n_neighbors, args.feature_type), clip_scores)
-    np.save('../datasets/datacomp/graph_%snn_%s_distances.npy' % (args.n_neighbors, args.feature_type), distances)
+    np.save(os.path.join(args.out_dir, 'graph_%snn_%s_uids.npy' % (args.n_neighbors, args.feature_type)), uids)
+    np.save(os.path.join(args.out_dir, 'graph_%snn_%s_neighbors.npy' % (args.n_neighbors, args.feature_type)), neighbors)
+    np.save(os.path.join(args.out_dir, 'graph_%snn_%s_graph_scores.npy' % (args.n_neighbors, args.feature_type)), graph_scores)
+    np.save(os.path.join(args.out_dir, 'graph_%snn_%s_clip_scores.npy' % (args.n_neighbors, args.feature_type)), clip_scores)
+    np.save(os.path.join(args.out_dir, 'graph_%snn_%s_distances.npy' % (args.n_neighbors, args.feature_type)), distances)
     print("-------- Took %s seconds to initialize graph " % (time.time() - start_time))
 
     # Step 5: Iterative selection
-    selected_idxs = iterative_selection('../datasets/datacomp/graph_%snn_image_text_graph_scores.npy' % args.n_neighbors,
-                                        '../datasets/datacomp/graph_%snn_image_text_neighbors.npy' % args.n_neighbors,
-                                        '../datasets/datacomp/graph_%snn_image_text_clip_scores.npy' % args.n_neighbors,
-                                        '../datasets/datacomp/graph_%snn_image_text_distances.npy' % args.n_neighbors, args.fraction,
+    selected_idxs = iterative_selection(os.path.join(args.out_dir, 'graph_%snn_%s_graph_scores.npy' % (args.n_neighbors, args.feature_type)),
+                                        os.path.join(args.out_dir, 'graph_%snn_%s_neighbors.npy' % (args.n_neighbors, args.feature_type)),
+                                        os.path.join(args.out_dir, 'graph_%snn_%s_clip_scores.npy' % (args.n_neighbors, args.feature_type)),
+                                        os.path.join(args.out_dir, 'graph_%snn_%s_distances.npy' % (args.n_neighbors, args.feature_type)), args.fraction,
                                         gamma=args.gamma)
-    uids = np.load('../datasets/datacomp/graph_%snn_image_text_uids.npy' % args.n_neighbors)[selected_idxs]
+    uids = np.load(os.path.join(args.out_dir, 'graph_%snn_%s_uids.npy' % (args.n_neighbors, args.feature_type)))[selected_idxs]
     uids.sort()
-    np.save(
-        '../datasets/datacomp/coreset_graph_%snn_g=%s_uids_%s_percent_image_text.npy' % (args.n_neighbors, args.gamma, int(args.fraction * 100)),
-        uids)
+    np.save(os.path.join(args.out_dir, 'graph_%snn_g=%s_uids_%s_percent_image_text.npy' % (args.n_neighbors, args.gamma, int(args.fraction * 100))), uids)
 

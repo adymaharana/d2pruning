@@ -1,6 +1,6 @@
 ## D2 Pruning: Message Passing for Balancing Diversity & Difficulty in Data Pruning
 * Authors: [Adyasha Maharana](https://adymaharana.github.io/), [Prateek Yadav](https://prateeky2806.github.io/), and [Mohit Bansal](https://www.cs.unc.edu/~mbansal/)
-* Paper: [arXiv]()
+* Paper: [arXiv](https://arxiv.org/abs/2310.07931)
 
 ![image](./assets/d2_pruning_main.png)
 
@@ -39,8 +39,25 @@ python train.py --dataset cifar10 --gpuid 1 --iterations 40000 --task-name class
 ```
 
 
-### Training ResNet models on ImageNet-1K \[coming soon\]
+### Training ResNet models on ImageNet-1K
+```
+# Train model on full dataset to extract training dynamics
+python train_imagenet.py --epochs 60 --lr 0.1 --scheduler cosine --task-name all-data --base-dir ./data-model/imagenet --data-dir /dir/to/data/imagenet --network resnet34 --batch-size 256 --gpuid 0,1
 
+# Get importance scores and sample embeddings
+python generate_importance_score.py --gpuid 0 --base-dir ./data-model/imagenet --task-name all-data --feature
+
+# Select samples using D2 pruning and train ResNet 18 on the selected coreset
+N_NEIGHBOR=5
+GAMMA=0.1
+CORESET_RATIO=0.1
+python train_imagenet.py --dataset imagenet --gpuid 1 --iterations 40000 --task-name class-lb-graph-n=$N_NEIGHBOR-g=$GAMMA-$CORESET_RATIO \
+    --base-dir ./data-model/imagenet/graph/ --coreset --coreset-mode graph --budget-mode uniform --sampling-mode graph \
+    --data-score-path ./data-model/imagenet/all-data/data-score-all-data.pickle \
+    --feature-path ./data-model/imagenet/all-data/train-features-all-data.npy \
+    --coreset-key accumulated_margin --coreset-ratio $CORESET_RATIO --mis-ratio 0.4 --label-balanced \
+    --n-neighbor $N_NEIGHBOR --gamma $GAMMA --stratas 25 --graph-mode sum --graph-sampling-mode weighted
+```
 
 ### Training RoBERTa models on Adversarial NLI, ImDB-1k \[coming soon\]
 
@@ -71,7 +88,7 @@ Please cite our paper if you use the $D^2$ pruning method in your works:
   author        = {Adyasha Maharana and Prateek Yadav and Mohit Bansal},
   year          = {2023},
   archivePrefix = {arXiv},
-  primaryClass  = {cs.ML},
-  eprint        = {}
+  primaryClass  = {cs.LG},
+  eprint        = {2310.07931}
 }
 ```
